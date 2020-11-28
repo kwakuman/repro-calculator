@@ -7,9 +7,10 @@ import tweepy
 from dotenv import load_dotenv
 import os
 
-def spocitej_r(data, datum):
+
+def spocitej_r(zdrojDat, datum):
     '''
-    :param data: slovnik obsahujici data z mzcr
+    :param zdrojDat: slovnik obsahujici data z mzcr
     :param datum: datum, ke kterému se má spočítat reprodukční číslo r
     :return: číslo r
     '''
@@ -20,10 +21,10 @@ def spocitej_r(data, datum):
 
     # vypočítej reprodukční číslo
     citatel = sum(
-        [x['prirustkovy_pocet_nakazenych'] for x in data['data'] if x['datum'] in datumyCitatel]
+        [x['prirustkovy_pocet_nakazenych'] for x in zdrojDat['data'] if x['datum'] in datumyCitatel]
     )
     jmenovatel = sum(
-        [x['prirustkovy_pocet_nakazenych'] for x in data['data'] if x['datum'] in datumyJmenovatel]
+        [x['prirustkovy_pocet_nakazenych'] for x in zdrojDat['data'] if x['datum'] in datumyJmenovatel]
     )
     reprodukcniCislo = citatel / jmenovatel
     return reprodukcniCislo
@@ -55,7 +56,7 @@ if __name__ == '__main__':
     ax.set_title('Vývoj reprodukčního čísla za posledních 30 dní')
     fig.savefig('trend.png')
 
-    '''
+
     # přihlaš se na Twitter
     load_dotenv()
     CONSUMER_KEY = os.getenv('CONSUMER_KEY')
@@ -70,7 +71,7 @@ if __name__ == '__main__':
     # Create API object
     api = tweepy.API(auth, wait_on_rate_limit=True,
                      wait_on_rate_limit_notify=True)
-    '''
+
     # tweetni reprodukční číslo
     api.update_with_media('trend.png',
                           f'Dnes je {dnes.strftime("%d.%m.%Y")} a reprodukční číslo je {reprodukcniCislo:.2f}'
