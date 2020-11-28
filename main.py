@@ -72,7 +72,7 @@ if __name__ == '__main__':
                      wait_on_rate_limit_notify=True)
     '''
     # tweetni reprodukční číslo
-    #api.update_with_media('trend.png',
-    #                      f'Dnes je {dnes.strftime("%d.%m.%Y")} a reprodukční číslo je {reprodukcniCislo:.2f}'
-    #                      )
+    api.update_with_media('trend.png',
+                          f'Dnes je {dnes.strftime("%d.%m.%Y")} a reprodukční číslo je {reprodukcniCislo:.2f}'
+                          )
     print(f'{reprodukcniCislo:.2f}')
